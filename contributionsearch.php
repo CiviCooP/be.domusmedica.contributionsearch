@@ -150,8 +150,19 @@ function contributionsearch_civicrm_navigationMenu(&$menu) {
   _contributionsearch_civix_navigationMenu($menu);
 } // */
 
+
+// inject the CRM_Contributionsearch_Query() object to alter the
+// contact query behaviour
 function contributionsearch_civicrm_queryObjects(&$queryObjects, $type) {
   if ($type == 'Contact') {
     $queryObjects[] = new CRM_Contributionsearch_Query();
+  }
+}
+
+// in the returning result also the column header must be replaced to reflect
+// the contents of the column
+function contributionsearch_civicrm_alterContent(&$content, $context, $tplName, &$object) {
+  if ($object instanceof CRM_Contribute_Form_Search) {
+    $content = str_replace('Relatiegeschenk', 'Factuur', $content);
   }
 }
