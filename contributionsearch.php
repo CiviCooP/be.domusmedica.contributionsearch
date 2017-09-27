@@ -162,8 +162,8 @@ function contributionsearch_civicrm_queryObjects(&$queryObjects, $type) {
 // in the returning result also the column header must be replaced to reflect
 // the contents of the column
 function contributionsearch_civicrm_alterContent(&$content, $context, $tplName, &$object) {
-  Civi::log()->info("alterContent object : ".get_class($object));
   if ($object instanceof CRM_Contribute_Form_Search || $object instanceof CRM_Contribute_Page_Tab ) {
     $content = str_replace('Relatiegeschenk', 'Factuur', $content);
+    $content = str_replace('<label>Bedankje verzonden?</label>', '<label>Factuur aangemaakt?</label>', $content);
   }
 }

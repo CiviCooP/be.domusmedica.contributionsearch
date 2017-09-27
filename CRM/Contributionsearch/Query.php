@@ -6,10 +6,10 @@
  * @date 25 sept 2017
  * @license AGPL-3.0
  */
-class CRM_Contributionsearch_Query {
+class CRM_Contributionsearch_Query extends CRM_Contact_BAO_Query_Interface {
 
-  public function getFields() {
-    return [];
+  public function &getFields(){
+    return array();
   }
 
   public function setTableDependency(&$tables) {
@@ -32,6 +32,18 @@ class CRM_Contributionsearch_Query {
   }
 
   public function where(&$query) {
+
+    foreach($query->_where[0] as $key=>$clause){
+      if($clause=='civicrm_contribution.thankyou_date IS NOT NULL'){
+        $query->_where[0][$key]='length(civicrm_contribution.invoice_id)=8';
+      } elseif ($clause=='civicrm_contribution.thankyou_date IS NULL'){
+        $query->_where[0][$key]='(length(civicrm_contribution.invoice_id)!=8) OR (civicrm_contribution.invoice_id IS NULL)';
+      }
+    }
+    Civi::log()->info(print_r($query->_where,true));
+
+
+
   }
 
 }
