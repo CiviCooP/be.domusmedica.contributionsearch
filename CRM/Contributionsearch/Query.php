@@ -8,8 +8,14 @@
  */
 class CRM_Contributionsearch_Query extends CRM_Contact_BAO_Query_Interface {
 
+  private $_fields;
+
+  function __construct() {
+    $this->_fields=array();
+  }
+
   public function &getFields(){
-    return array();
+    return $this->_fields;
   }
 
   public function setTableDependency(&$tables) {
