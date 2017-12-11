@@ -40,10 +40,6 @@ class CRM_Contributionsearch_Query extends CRM_Contact_BAO_Query_Interface {
         $query->_where[0][$key]='(length(civicrm_contribution.invoice_id)!=8) OR (civicrm_contribution.invoice_id IS NULL)';
       }
     }
-    Civi::log()->info(print_r($query->_where,true));
-
-
-
   }
 
 }
